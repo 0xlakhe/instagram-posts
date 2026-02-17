@@ -1,8 +1,22 @@
 import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
+  const navigate = useNavigate();
   function submitHandler(e) {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    axios
+      .post("http://localhost:3000/create-post", formData)
+      .then((res) => {
+        console.log(res);
+        navigate("/feed");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error creating post");
+      });
   }
 
   return (
